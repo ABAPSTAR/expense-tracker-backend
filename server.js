@@ -10,7 +10,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
 
-// 🌟 MySQL connection using Railway credentials
+// MySQL connection
 const db = mysql.createConnection({
   host: 'maglev.proxy.rlwy.net',
   user: 'root',
@@ -27,7 +27,7 @@ db.connect((err) => {
   console.log('✅ Connected to MySQL as id', db.threadId);
 });
 
-// 🌟 Get all users (for testing)
+// GET all users
 app.get('/api/users', (req, res) => {
   db.query('SELECT * FROM users', (err, results) => {
     if (err) {
@@ -39,10 +39,9 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// 🌟 Register endpoint
-app.post('/register', (req, res) => {
+// Register
+app.post('/api/register', (req, res) => {
   const { name, email, password } = req.body;
-
   if (!name || !email || !password) {
     return res.status(400).json({ success: false, message: 'All fields are required' });
   }
@@ -60,8 +59,8 @@ app.post('/register', (req, res) => {
   );
 });
 
-// 🌟 Login endpoint
-app.post('/login', (req, res) => {
+// Login
+app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
 
   db.query(
@@ -81,7 +80,7 @@ app.post('/login', (req, res) => {
   );
 });
 
-// 🌟 GET all expenses
+// GET all expenses
 app.get('/api/expenses', (req, res) => {
   db.query('SELECT * FROM expenses', (err, results) => {
     if (err) {
@@ -93,7 +92,7 @@ app.get('/api/expenses', (req, res) => {
   });
 });
 
-// 🌟 POST create a new expense
+// Create a new expense
 app.post('/api/expenses', (req, res) => {
   const { amount, category, date, notes } = req.body;
 
@@ -111,7 +110,7 @@ app.post('/api/expenses', (req, res) => {
   );
 });
 
-// 🌟 PUT update an expense
+// Update an expense
 app.put('/api/expenses/:id', (req, res) => {
   const { id } = req.params;
   const { amount, category, date, notes } = req.body;
@@ -130,7 +129,7 @@ app.put('/api/expenses/:id', (req, res) => {
   );
 });
 
-// 🌟 DELETE an expense
+// Delete an expense
 app.delete('/api/expenses/:id', (req, res) => {
   const { id } = req.params;
 
@@ -144,7 +143,7 @@ app.delete('/api/expenses/:id', (req, res) => {
   });
 });
 
-// 🌟 Start the server
+// Start the server
 app.listen(PORT, () => {
   console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
