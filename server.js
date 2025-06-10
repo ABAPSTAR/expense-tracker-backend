@@ -12,11 +12,11 @@ app.use(express.static('public'));
 
 // 🌟 MySQL connection using Railway credentials
 const db = mysql.createConnection({
-  host: 'mysql.railway.internal',
+  host: 'maglev.proxy.rlwy.net',
   user: 'root',
   password: 'NAwLJJwuPQKsgshsJIJvGTsqiAoRwkPX',
   database: 'railway',
-  port: 3306
+  port: 50217
 });
 
 db.connect((err) => {
