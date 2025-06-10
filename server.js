@@ -8,14 +8,15 @@ const PORT = 3001;
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static('public')); // Serve static files
+app.use(express.static('public'));
 
-// MySQL connection
+// 🌟 MySQL connection using Railway credentials
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: 'mysql.railway.internal',
   user: 'root',
-  password: 'root', // Update with your MySQL password
-  database: 'mytestdb1' // Update with your database name
+  password: 'NAwLJJwuPQKsgshsJIJvGTsqiAoRwkPX',
+  database: 'railway',
+  port: 3306
 });
 
 db.connect((err) => {
@@ -38,7 +39,7 @@ app.get('/api/users', (req, res) => {
   });
 });
 
-// 🌟 Register endpoint (POST /register)
+// 🌟 Register endpoint
 app.post('/register', (req, res) => {
   const { name, email, password } = req.body;
 
@@ -59,7 +60,7 @@ app.post('/register', (req, res) => {
   );
 });
 
-// 🌟 Login endpoint (POST /login)
+// 🌟 Login endpoint
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
 
@@ -78,11 +79,6 @@ app.post('/login', (req, res) => {
       }
     }
   );
-});
-
-// 🌟 Start the server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running at http://localhost:${PORT}`);
 });
 
 // 🌟 GET all expenses
@@ -148,3 +144,7 @@ app.delete('/api/expenses/:id', (req, res) => {
   });
 });
 
+// 🌟 Start the server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at http://localhost:${PORT}`);
+});
